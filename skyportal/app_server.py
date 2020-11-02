@@ -7,6 +7,8 @@ from baselayer.log import make_log
 
 from skyportal.handlers import BecomeUserHandler, LogoutHandler
 from skyportal.handlers.api import (
+    ACLHandler,
+    UserACLHandler,
     AllocationHandler,
     AssignmentHandler,
     CandidateHandler,
@@ -31,6 +33,8 @@ from skyportal.handlers.api import (
     BulkDeletePhotometryHandler,
     ObjPhotometryHandler,
     PhotometryRangeHandler,
+    RoleHandler,
+    UserRoleHandler,
     SharingHandler,
     SourceHandler,
     SourceOffsetsHandler,
@@ -94,6 +98,7 @@ def make_app(cfg, baselayer_handlers, baselayer_settings):
 
     handlers = baselayer_handlers + [
         # API endpoints
+        (r'/api/acls', ACLHandler),
         (r'/api/allocation(/.*)?', AllocationHandler),
         (r'/api/assignment(/.*)?', AssignmentHandler),
         (r'/api/candidates(/.*)?', CandidateHandler),
@@ -123,6 +128,7 @@ def make_app(cfg, baselayer_handlers, baselayer_settings):
         (r'/api/sharing', SharingHandler),
         (r'/api/photometry/bulk_delete/(.*)', BulkDeletePhotometryHandler),
         (r'/api/photometry/range(/.*)?', PhotometryRangeHandler),
+        (r'/api/roles', RoleHandler),
         (r'/api/sources(/[0-9A-Za-z-_]+)/photometry', ObjPhotometryHandler),
         (r'/api/sources(/[0-9A-Za-z-_]+)/spectra', ObjSpectraHandler),
         (r'/api/sources(/[0-9A-Za-z-_]+)/offsets', SourceOffsetsHandler),
@@ -139,6 +145,8 @@ def make_app(cfg, baselayer_handlers, baselayer_settings):
         (r'/api/taxonomy(/.*)?', TaxonomyHandler),
         (r'/api/telescope(/[0-9]+)?', TelescopeHandler),
         (r'/api/thumbnail(/[0-9]+)?', ThumbnailHandler),
+        (r'/api/user(/[0-9]+)/acls(/.*)?', UserACLHandler),
+        (r'/api/user(/[0-9]+)/roles(/.*)?', UserRoleHandler),
         (r'/api/user(/.*)?', UserHandler),
         (r'/api/weather(/.*)?', WeatherHandler),
         (r'/api/internal/tokens(/.*)?', TokenHandler),
