@@ -177,6 +177,19 @@ skyportal_handlers = [
     (r'/.*', MainPageHandler),
     #
     # Refer to Main.jsx for routing info.
+
+    # Fritz-specific handlers.
+    # Fritz-specific API endpoints
+    # ZTF Alerts
+    (
+        r"/api/alerts/ztf/(.+)/aux",
+        ZTFAlertAuxHandler,
+    ),  # most descriptive path must be defined first
+    (r"/api/alerts/ztf/(.+)/cutout", ZTFAlertCutoutHandler),
+    (r"/api/alerts/ztf/(.+)", ZTFAlertHandler),
+    # Alert Stream filter versioning via K:
+    (r"/api/filters/([0-9]+)?/v", KowalskiFilterHandler),
+
 ]
 
 
